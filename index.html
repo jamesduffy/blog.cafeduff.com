@@ -1,0 +1,283 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{Title}</title>
+    <link rel="shortcut icon" href="{Favicon}">
+    <link rel="alternate" type="application/rss+xml" href="{RSS}">
+    {block:Description}
+        <meta name="description" content="{MetaDescription}" />
+    {/block:Description}
+
+    <meta name="theme-color" content="#00A5F4">
+
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro|Raleway' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cafeduff.com/css/styles.css?" rel="stylesheet">
+
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    
+    <header class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 site-header">
+                <h1>Hi, I'm James Duffy!</h1>
+                <h3>Aspiring Software Engineer, Recent Grad</h3>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-default navbar-static hidden-xs">
+      <div class="container text-center">
+
+        <ul class="nav navbar-nav">
+          <li><a href="https://cafeduff.com/">About</a></li>
+          <li class="active"><a href="http://blog.cafeduff.com">Blog</a></li>
+          <li><a href="https://cafeduff.com/findings/">Findings</a></li>
+          <li><a href="https://cafeduff.com/portfolio/">Portfolio</a></li>
+          <li><a target="_blank" href="https://dl.dropboxusercontent.com/u/32012684/Resume.pdf">Resume</a></li>
+          <li><a href="https://cafeduff.com/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="posts">
+          {block:Posts}
+
+            {block:Text}
+              {block:Title}
+                <h1><a href="{Permalink}">{Title}</a></h1>
+              {/block:Title}
+
+              {block:Date}
+                <p class="post-meta">{ShortMonth} {DayOfMonth}, {Year}</p>
+              {/block:Date}
+
+              {Body}
+            {/block:Text}
+
+            {block:Photo}
+              {block:Date}
+                <p class="post-meta">{ShortMonth} {DayOfMonth}, {Year}</p>
+              {/block:Date}
+
+              <img src="{PhotoURL-500}" alt="{PhotoAlt}" class="img-responsive"/>
+
+              {block:Caption}
+                <div class="caption">{Caption}</div>
+              {/block:Caption}
+            {/block:Photo}
+
+            {block:Panorama}
+              {block:Date}
+                <p class="post-meta">{ShortMonth} {DayOfMonth}, {Year}</p>
+              {/block:Date}
+
+              {LinkOpenTag}
+                <img src="{PhotoURL-Panorama}" alt="{PhotoAlt}"/>
+              {LinkCloseTag}
+
+              {block:Caption}
+                <div class="caption">{Caption}</div>
+              {/block:Caption}
+            {/block:Panorama}
+
+            {block:Photoset}
+              {block:Date}
+                <p class="post-meta">{ShortMonth} {DayOfMonth}, {Year}</p>
+              {/block:Date}
+
+              {Photoset-500}
+
+              {block:Caption}
+                <div class="caption">{Caption}</div>
+              {/block:Caption}
+            {/block:Photoset}
+
+            {block:Quote}
+              "{Quote}"
+
+              {block:Date}
+                <p class="post-meta">{ShortMonth} {DayOfMonth}, {Year}</p>
+              {/block:Date}
+
+              {block:Source}
+                <div class="source">{Source}</div>
+              {/block:Source}
+            {/block:Quote}
+
+            {block:Link}
+              {block:Date}
+                <p class="post-meta">{ShortMonth} {DayOfMonth}, {Year}</p>
+              {/block:Date}
+
+              <a href="{URL}" class="link" {Target}>{Name}</a>
+
+              {block:Description}
+                <div class="description">{Description}</div>
+              {/block:Description}
+            {/block:Link}
+
+            {block:Chat}
+              {block:Date}
+                <p class="post-meta">{ShortMonth} {DayOfMonth}, {Year}</p>
+              {/block:Date}
+
+              {block:Title}
+                <h1><a href="{Permalink}">{Title}</a></h1>
+              {/block:Title}
+
+              <ul class="chat">
+                {block:Lines}
+                    <li class="{Alt} user_{UserNumber}">
+                        {block:Label}
+                            <span class="label">{Label}</span>
+                        {/block:Label}{Line}
+                    </li>
+                {/block:Lines}
+              </ul>
+            {/block:Chat}
+
+            {block:Video}
+              {block:Date}
+                <p class="post-meta">{ShortMonth} {DayOfMonth}, {Year}</p>
+              {/block:Date}
+
+              {Video-500}
+
+              {block:Caption}{Caption}{/block:Caption}
+            {/block:Video}
+
+            {block:Audio}
+              {block:Date}
+                <p class="post-meta">{ShortMonth} {DayOfMonth}, {Year}</p>
+              {/block:Date}
+
+              {AudioEmbed}
+
+              {block:Caption}{Caption}{/block:Caption}
+            {/block:Audio}
+
+            {LikeButton} {ReblogButton}
+
+            <hr>
+
+          {/block:Posts}
+          </div>
+
+          {block:Pagination}
+          <nav>
+            <ul class="pager">
+              {block:PreviousPage}
+                <li class="previous"><a href="{PreviousPage}"><span aria-hidden="true">&larr;</span> Previous</a></li>
+              {/block:PreviousPage}
+
+              {block:NextPage}
+                <li class="next"><a href="{NextPage}">Next <span aria-hidden="true">&rarr;</span></a></li>
+              {/block:NextPage}
+            </ul>
+          </nav>
+          {/block:Pagination}
+
+        </div>
+
+        <div class="col-sm-4">
+          <form action="/search" method="get">
+            <div class="input-group">
+              <input type="text" name="q" value="{SearchQuery}" class="form-control">
+              <span class="input-group-btn">
+                <input type="submit" class="btn btn-default" value="Search">
+              </span>
+            </div>
+          </form>
+
+          {block:AskEnabled}
+            <a href="/ask">{AskLabel}</a>
+          {/block:AskEnabled}
+
+          {block:Twitter}
+              <div id="twitter" style="display:none;">
+                  <h3><a href="http://twitter.com/{TwitterUsername}">Latest Tweets</a></h3>
+
+                  <div id="tweets"></div>
+              </div>
+
+              <script type="text/javascript">
+                  function recent_tweets(data) {
+                      for (i=0; i<data.length; i++) {
+                          document.getElementById("tweets").innerHTML =
+                              document.getElementById("tweets").innerHTML +
+                              '<a href="http://twitter.com/{TwitterUsername}/status/' +
+                              (data[i].id_str ? data[i].id_str : data[i].id) +
+                              '"><div class="content">' + data[i].text +
+                              '</div></a>';
+                      }
+                      document.getElementById("twitter").style.display = 'block';
+                  }
+              </script>
+          {/block:Twitter}
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="container">
+
+      <div class="visible-xs">
+        <hr>
+
+        <ul class="nav nav-justified">
+          <li><a href="/">About</a></li>
+          <li class="active"><a href="http://blog.cafeduff.com">Blog</a></li>
+          <li><a href="/findings/">Findings</a></li>
+          <li><a target="_blank" href="https://dl.dropboxusercontent.com/u/32012684/Resume.pdf">Resume</a></li>
+          <li><a href="/portfolio/">Portfolio</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="text-center">
+            <div class="btn-group btn-group-lg " role="group" aria-label="...">
+              <a class="btn btn-default" href="mailto:james@cafeduff.com" title="james@cafeduff.com"><i class="fa fa-inbox"></i></a>
+              <a href="https://github.com/jamesduffy" class="btn btn-default"><i class="fa fa-github"></i></a>
+              <a href="https://twitter.com/duffy0" class="btn btn-default"><i class="fa fa-twitter"></i></a>
+              <a href="https://www.linkedin.com/in/duffy0" class="btn btn-default"><i class="fa fa-linkedin"></i></a>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:2em;">
+        <div class="col-lg-12">
+          <p class="text-small text-center">Made with <i class="fa fa-heart text-danger"></i> in California.</p>
+        </div>
+      </div>
+
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+    {block:Twitter}
+      <script type="text/javascript" src="/tweets.js"></script>
+    {/block:Twitter}
+    
+</body>
+</html>
