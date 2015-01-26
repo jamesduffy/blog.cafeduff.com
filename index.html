@@ -7,19 +7,79 @@
     <title>{Title}</title>
     <link rel="shortcut icon" href="{Favicon}">
     <link rel="alternate" type="application/rss+xml" href="{RSS}">
-    {block:Description}
-        <meta name="description" content="{MetaDescription}" />
-    {/block:Description}
 
     <meta name="text:Google Analytics" content=""/>
 
-    <meta name="theme-color" content="#00A5F4">
+    <meta name="theme-color" content="#09406C">
+
+    <meta name="robots" content="index,follow" />
+    <meta name="title" content="{Title}{block:PostSummary} &mdash; {PostSummary}{/block:PostSummary}{block:SearchPage} &mdash; Search results for {SearchQuery}{/block:SearchPage}"/>
+    <meta name="keywords" content="{block:Permalink}{block:Posts}{block:Tags}{Tag}, {/block:Tags}{/block:Posts}{/block:Permalink}" />
+    <meta name="description" content="{MetaDescription}" />
+    <meta name="revisit-after" content="2 days" />
+
+    <meta property="og:title" content="{Title}{block:PostSummary} &mdash; {PostSummary}{/block:PostSummary}{block:SearchPage} &mdash; Search results for {SearchQuery}{/block:SearchPage}"/>
+    <meta property="og:image" content="{PortraitURL-48}"/>
+    <meta property="og:site_name" content="{Title}"/>
+
+    {block:IndexPage} 
+    <meta property="og:description" content="{MetaDescription}"/>
+    <meta property="og:type" content="blog"/>
+    {/block:IndexPage}      
+    {block:PermalinkPage}
+      <meta property="og:description" content="{block:PostSummary}{PostSummary}{/block:PostSummary}"/>
+      <meta property="og:type" content="{block:Posts}{block:Text}article{/block:Text}{block:Video}video.other{/block:Video}{block:Audio}music.song{/block:Audio}{block:Link}website{/block:Link}{block:Quote}article{/block:Quote}{block:Photoset}article{/block:Photoset}{block:Panorama}article{/block:Panorama}{block:Photo}article{/block:Photo}{block:Chat}article{/block:Chat}{block:Answer}article{/block:Answer}{/block:Posts}"/>
+      {block:Posts}
+        {block:Audio}
+          <meta property="og:type" content="music.song"/>
+          {block:ExternalAudio}<meta property="og:audio" content="{ExternalAudioURL}"/>{/block:ExternalAudio}
+          {block:TrackName}<meta property="og:audio:title" content="{TrackName}"/>{/block:TrackName}
+          {block:Artist}<meta property="og:audio:artist" content="{Artist}"/>{/block:Artist}
+          {block:Album}<meta property="og:audio:album" content="{Album}"/>{/block:Album}
+        {/block:Audio}
+        {block:Text}
+          <meta property="og:type" content="article"/>
+          <meta property="og:article:tag" content="{TagsAsClasses}"/>   
+        {/block:Text}
+        {block:Link}
+          <meta property="og:type" content="website"/>
+        {/block:Link}
+        {block:Quote}
+          <meta property="og:type" content="article"/>
+          <meta property="og:article:tag" content="{TagsAsClasses}"/>   
+        {/block:Quote}
+        {block:Photoset}
+          <meta property="og:type" content="article"/>
+          <meta property="og:article:tag" content="{TagsAsClasses}"/>   
+        {/block:Photoset}
+        {block:Panorama}
+          <meta property="og:type" content="article"/>
+          <meta property="og:article:tag" content="{TagsAsClasses}"/>   
+        {/block:Panorama}
+        {block:Photo}
+          <meta property="og:type" content="article"/>
+          <meta property="og:article:tag" content="{TagsAsClasses}"/>   
+        {/block:Photo}
+        {block:Chat}
+          <meta property="og:type" content="article"/>
+          <meta property="og:article:tag" content="{TagsAsClasses}"/>   
+        {/block:Chat}
+        {block:Answer}
+          <meta property="og:type" content="article"/>
+          <meta property="og:article:tag" content="{TagsAsClasses}"/>   
+        {/block:Answer}
+        {block:Video}
+          <meta property="og:type" content="video.other"/>
+          <meta property="og:video" content="{VideoEmbed-700}"/>
+          <meta property="og:video:width" content="700"/>
+          <meta property="og:video:tag" content="{TagsAsClasses}"/>   
+        {/block:Video}
+      {/block:Posts}
+    {/block:PermalinkPage}
 
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro|Raleway' rel='stylesheet' type='text/css'>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="//cafeduff.com/css/styles.css?" rel="stylesheet">
-
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+    <link href="//cafeduff.com/css/styles.css?201501261520" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -64,17 +124,17 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-sm-8">
-          <div class="posts">
+        <div class="col-sm-12">
           {block:Posts}
+          <article>
 
             {block:Text}
               {block:Title}
-                <h1><a href="{Permalink}">{Title}</a></h1>
+                <h1 class="text-center"><a href="{Permalink}">{Title}</a></h1>
               {/block:Title}
 
               {block:Date}
-                <p class="post-meta">{ShortMonth} {DayOfMonth}, {Year}</p>
+                <p class="post-meta text-center">{ShortMonth} {DayOfMonth}, {Year}</p>
               {/block:Date}
 
               {Body}
@@ -182,15 +242,10 @@
               {block:Caption}{Caption}{/block:Caption}
             {/block:Audio}
 
-            <ul class="nav nav-pills">
-              <li role="presentation">{LikeButton}</li>
-              <li role="presentation">{ReblogButton}</li>
-            </ul>
-
             <hr>
 
+          </article>
           {/block:Posts}
-          </div>
 
           {block:Pagination}
           <nav>
@@ -208,68 +263,27 @@
 
         </div>
 
-        <div class="col-sm-4">
-          <form action="/search" method="get">
-            <div class="input-group">
-              <input type="text" name="q" value="{SearchQuery}" class="form-control">
-              <span class="input-group-btn">
-                <input type="submit" class="btn btn-default" value="Search">
-              </span>
-            </div>
-          </form>
-
-          {block:AskEnabled}
-            <a href="/ask">{AskLabel}</a>
-          {/block:AskEnabled}
-
-          {block:Twitter}
-              <div id="twitter" style="display:none;">
-                  <h3><a href="http://twitter.com/{TwitterUsername}">Latest Tweets</a></h3>
-
-                  <div id="tweets"></div>
-              </div>
-
-              <script type="text/javascript">
-                  function recent_tweets(data) {
-                      for (i=0; i<data.length; i++) {
-                          document.getElementById("tweets").innerHTML =
-                              document.getElementById("tweets").innerHTML +
-                              '<a href="http://twitter.com/{TwitterUsername}/status/' +
-                              (data[i].id_str ? data[i].id_str : data[i].id) +
-                              '"><div class="content">' + data[i].text +
-                              '</div></a>';
-                      }
-                      document.getElementById("twitter").style.display = 'block';
-                  }
-              </script>
-          {/block:Twitter}
-
-        </div>
       </div>
     </div>
 
     <footer class="container">
 
-      <hr>
-
       <div class="row">
         <div class="col-lg-12">
           <div class="text-center">
-            <div class="btn-group btn-group-lg " role="group" aria-label="...">
-              <a class="btn btn-default" href="mailto:james@cafeduff.com" title="james@cafeduff.com"><i class="fa fa-inbox"></i></a>
-              <a href="https://github.com/jamesduffy" class="btn btn-default"><i class="fa fa-github"></i></a>
-              <a href="https://twitter.com/duffy0" class="btn btn-default"><i class="fa fa-twitter"></i></a>
-              <a href="https://www.linkedin.com/in/duffy0" class="btn btn-default"><i class="fa fa-linkedin"></i></a>
-
-            </div>
-
+            <a class="btn btn-default btn-lg brand brand-gmail" href="mailto:james@cafeduff.com" title="james@cafeduff.com"><i class="fa fa-inbox"></i></a>
+            <a href="https://github.com/jamesduffy" class="btn btn-default btn-lg brand brand-github"><i class="fa fa-github"></i></a>
+            <a href="https://twitter.com/duffy0" class="btn btn-default btn-lg brand brand-twitter"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/duffy0" class="btn btn-default btn-lg brand brand-linkedin"><i class="fa fa-linkedin"></i></a>
+            <a class="btn btn-default btn-lg brand brand-rss" href="{RSS}"><i class="fa fa-rss"></i></a>
           </div>
         </div>
       </div>
 
-      <div class="row" style="margin-top:2em;">
-        <div class="col-lg-12">
-          <p class="text-small text-center">Made with <i class="fa fa-heart text-danger"></i> in California.</p>
+      <div class="row copyright">
+        <div class="col-xs-12">
+          <p class="text-center">Made with <i class="fa fa-heart"></i> in California.</p>
+          <p class="text-center">&copy; 2015 James Duffy. All Rights Reserved.</p>
         </div>
       </div>
 
